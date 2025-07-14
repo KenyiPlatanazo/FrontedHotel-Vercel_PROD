@@ -1,10 +1,10 @@
 import api from "../../../gateway-services/ConnectionService";
 
-export type PromotionType = 'percentage' | 'fixed' | 'added_value';
-export type RoomApplicability = 'all' | 'selected';
+export type PromotionType = "percentage" | "fixed" | "added_value";
+export type RoomApplicability = "all" | "selected";
 
 //Promotions fetched from the DB
-export interface Promotion{
+export interface Promotion {
   promotionId: number;
   name: string;
   description: string;
@@ -21,7 +21,7 @@ export interface Promotion{
 }
 
 //Promotion to be registered or updated
-export interface PromotionRequest{
+export interface PromotionRequest {
   name: string;
   description: string;
   discountValue: number;
@@ -34,35 +34,43 @@ export interface PromotionRequest{
   roomsIds: number[];
 }
 
-export interface RoomType{
+export interface RoomType {
   roomTypeId: number;
   roomType: string;
 }
 
-export const getAllPromotions = async (): Promise<Promotion[]> =>{
-  const res  = await api.get<Promotion[]>(`/api/promotions/all`);
+export const getAllPromotions = async (): Promise<Promotion[]> => {
+  const res = await api.get<Promotion[]>(`/promotions/all`);
   return res.data;
-}
-export const searchPromotionsByName = async (name: string): Promise<Promotion[]> =>{
-  const res  = await api.get<Promotion[]>(`/api/promotions/name/${name}`);
+};
+export const searchPromotionsByName = async (
+  name: string,
+): Promise<Promotion[]> => {
+  const res = await api.get<Promotion[]>(`/promotions/name/${name}`);
   return res.data;
-}
-export const searchPromotionsByNameAndOrStatus = async (name?: string, isActive?: boolean): Promise<Promotion[]> =>{
-  const params: Partial<{name: string; isActive: boolean}> = {};
-  if(name) params.name = name;
-  if(isActive !== undefined) params.isActive = isActive;
-  const res = await api.get<Promotion[]>(`/api/promotions/find`, {params});
+};
+export const searchPromotionsByNameAndOrStatus = async (
+  name?: string,
+  isActive?: boolean,
+): Promise<Promotion[]> => {
+  const params: Partial<{ name: string; isActive: boolean }> = {};
+  if (name) params.name = name;
+  if (isActive !== undefined) params.isActive = isActive;
+  const res = await api.get<Promotion[]>(`/promotions/find`, { params });
   return res.data;
-}
-export const savePromotionRequest = async (promotion: PromotionRequest) =>{
-  const res = await api.post(`/api/promotions/save`, promotion);
+};
+export const savePromotionRequest = async (promotion: PromotionRequest) => {
+  const res = await api.post(`/promotions/save`, promotion);
   return res.data;
-}
-export const updatePromotion = async (id: number, promotion: PromotionRequest) => {
-  const res = await api.put(`/api/promotions/update/${id}`, promotion);
+};
+export const updatePromotion = async (
+  id: number,
+  promotion: PromotionRequest,
+) => {
+  const res = await api.put(`/promotions/update/${id}`, promotion);
   return res.data;
-}
-export const getAllRoomTypes = async (): Promise<RoomType[]> =>{
-  const res = await api.get<RoomType[]>(`/api/rooms/rooms/type/all`);
+};
+export const getAllRoomTypes = async (): Promise<RoomType[]> => {
+  const res = await api.get<RoomType[]>(`/rooms/type/all`);
   return res.data;
-}
+};

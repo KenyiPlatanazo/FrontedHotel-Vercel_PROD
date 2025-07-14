@@ -59,11 +59,11 @@ export default function CreateRoomModal({
   }
 
   useEffect(() => {
-    api.get(`/api/rooms/roomtype`).then((res) => {
+    api.get(`/roomtype`).then((res) => {
       setRoomTypes(res.data);
     });
 
-    api.get(`/api/rooms/tags`).then((res) => {
+    api.get(`/tags`).then((res) => {
       setTags(res.data);
     });
   }, []);
@@ -125,7 +125,7 @@ export default function CreateRoomModal({
       const token = getToken();
       if (room) {
         // PUT con /api/rooms
-        await api.put(`/api/rooms/rooms/${room.roomId}`, data, {
+        await api.put(`/rooms/${room.roomId}`, data, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
@@ -134,7 +134,7 @@ export default function CreateRoomModal({
         alert("Habitación actualizada");
       } else {
         // POST con /api/rooms
-        await api.post(`/rooms/rooms`, data, {
+        await api.post(`/rooms`, data, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",

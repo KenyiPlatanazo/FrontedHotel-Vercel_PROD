@@ -34,7 +34,7 @@ export default function ReservationsPage() {
   useEffect(() => {
     async function fetchReservations() {
       try {
-        const { data } = await api.get<Reservation[]>(`/api/bookings/detail`);
+        const { data } = await api.get<Reservation[]>(`/bookings/detail`);
         setReservations(data);
       } catch (error) {
         console.error("Failed to fetch:", error);
@@ -121,7 +121,6 @@ export default function ReservationsPage() {
                 <td className="px-4 py-3 text-sm">${res.total}</td>
                 <td className="px-4 py-3 text-sm">
                   <span
-
                     className={`px-2 py-1 rounded-full text-xs font-semibold ${
                       res.status === "CONFIRMED"
                         ? "bg-green-100 text-green-800"
@@ -168,7 +167,6 @@ export default function ReservationsPage() {
                     <Pencil className="w-4 h-4" /> Set ACTIVE
                   </button>
                 </td>
-
               </tr>
             ))}
             {filtered.length === 0 && (

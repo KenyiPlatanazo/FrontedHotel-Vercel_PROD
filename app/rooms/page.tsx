@@ -55,7 +55,7 @@ export default function RoomsPage() {
       .some((c) => c.startsWith("access_token="));
     setIsLoggedIn(hasToken);
     api
-      .get<Room[]>(`/api/rooms/rooms`)
+      .get<Room[]>(`/rooms`)
       .then((res) => {
         setRooms(res.data);
         setLoading(false);
@@ -67,7 +67,7 @@ export default function RoomsPage() {
       });
 
     api
-      .get<RoomType[]>(`/api/rooms/roomtype`)
+      .get<RoomType[]>(`/roomtype`)
       .then((res) => setRoomTypes(res.data))
       .catch((err) => {
         console.error("Failed to fetch room types:", err);

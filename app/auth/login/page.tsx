@@ -4,9 +4,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Mail, Lock } from "lucide-react";
 import Link from "next/link";
-import api from "@/lib/api";
+//import api from "@/lib/api";
 import axios from "axios";
-//import api from '../../gateway-services/ConnectionService';
+import api from "../../gateway-services/ConnectionService";
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({

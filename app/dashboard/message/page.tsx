@@ -4,7 +4,7 @@ import api from "../../gateway-services/ConnectionService";
 import { useEffect, useState, useRef } from "react";
 import SockJS from "sockjs-client";
 import { Client, IMessage } from "@stomp/stompjs";
-import axios from "axios";
+//import axios from "axios";
 
 interface Message {
   id: number;
@@ -25,7 +25,7 @@ export default function GuestMessagesPage() {
   useEffect(() => {
     api.get("/messages");
     //.get("http://localhost:54518/api/messages")
-    axios
+    api
       .get("http://localhost:52432/api/messages")
       .then((res) => setMessages(res.data))
       .catch((err) => console.error("Error loading messages", err));
