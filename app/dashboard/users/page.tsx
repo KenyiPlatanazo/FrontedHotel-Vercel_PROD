@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import api from "../../gateway-services/ConnectionService";
+import axios from "axios";
 
 interface User {
   id: number;
@@ -33,17 +35,16 @@ export default function UsersPage() {
 
   useEffect(() => {
     const controller = new AbortController();
-
     async function load() {
       try {
         setLoading(true);
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/bookings/stats`,
-          { signal: controller.signal, cache: "no-store" },
-        );
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-        const data: RawStat[] = await res.json();
+        const res = await api.get<RawStat[]>("/bookings/stats", {
+          signal: controller.signal,
+          headers: {
+            "Cache-Control": "no-store",
+          },
+        });
+        const data = res.data;
         const mapped: User[] = data.map((s) => ({
           id: s.id,
           name: `${s.userName} ${s.userLastName}`,
@@ -58,20 +59,25 @@ export default function UsersPage() {
           totalSpent: s.totalAmount,
           status: s.status === "ACTIVE" ? "Active" : "Inactive",
         }));
-
         setUsers(mapped);
       } catch (err) {
-        if (err instanceof Error) {
-          if (err.name !== "AbortError") {
+        if (axios.isAxiosError(err)) {
+          if (err.code != "ERR_CANCELED") {
             console.error(err);
-            setError(err.message ?? "Error al cargar datos");
+            setError(
+              err.response?.data?.message ??
+                err.message ??
+                "Error al cargar datos",
+            );
           }
+        } else if (err instanceof Error) {
+          console.error(err);
+          setError(err.message ?? "Error al cargar los datos");
         }
       } finally {
         setLoading(false);
       }
     }
-
     load();
     return () => controller.abort();
   }, []);
