@@ -66,7 +66,7 @@ export default function RoomsPage() {
 
   useEffect(() => {
     api
-      .get<Room[]>(`/api/rooms/rooms`)
+      .get<Room[]>(`/rooms`)
       .then((res) => {
         setRooms(res.data);
         setLoading(false);
@@ -78,7 +78,7 @@ export default function RoomsPage() {
       });
 
     api
-      .get<RoomType[]>(`/api/rooms/roomtype`)
+      .get<RoomType[]>(`/roomtype`)
       .then((res) => setRoomTypes(res.data))
       .catch((err) => {
         console.error("Error al obtener tipos de habitación:", err);
@@ -92,7 +92,7 @@ export default function RoomsPage() {
     );
     if (!confirmDelete) return;
     try {
-      await api.delete(`/rooms/rooms/${roomId}`, {
+      await api.delete(`/rooms/${roomId}`, {
         headers: { Authorization: `Bearer ${getToken()}` },
       });
       alert("Habitación eliminada correctamente");

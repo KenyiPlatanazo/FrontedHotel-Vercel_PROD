@@ -93,10 +93,8 @@ export default function PaymentModal({
 
     setLoading(true);
     try {
-      await api.post(`/api/bookings/save`, bookingData);
-      await api.put(
-        `/api/rooms/rooms/${bookingData.roomId}/status?status=BOOKED`,
-      );
+      await api.post(`/bookings/save`, bookingData);
+      await api.put(`/rooms/${bookingData.roomId}/status?status=BOOKED`);
       onSuccess();
       onClose();
     } catch {

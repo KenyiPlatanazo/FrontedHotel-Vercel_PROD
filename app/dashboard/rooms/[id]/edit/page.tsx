@@ -52,7 +52,7 @@ export default function EditRoomPage() {
 
   useEffect(() => {
     if (!id) return;
-    api.get<Room>(`/api/rooms/rooms/${id}`).then((res) => {
+    api.get<Room>(`/rooms/${id}`).then((res) => {
       const r = res.data;
       setRoom(r);
       setForm({
@@ -71,7 +71,7 @@ export default function EditRoomPage() {
       .get<RoomType[]>(`/api/rooms/roomtype`)
       .then((res) => setRoomTypes(res.data));
     */
-    api.get<Tag[]>(`/api/rooms/tags`).then((res) => setTags(res.data));
+    api.get<Tag[]>(`/tags`).then((res) => setTags(res.data));
   }, [id]);
 
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -134,7 +134,7 @@ export default function EditRoomPage() {
     }
 
     try {
-      await api.put(`/api/rooms/rooms/${room.roomId}`, data);
+      await api.put(`/rooms/${room.roomId}`, data);
       alert("Habitación actualizada");
       router.back();
     } catch (err) {

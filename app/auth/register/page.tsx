@@ -37,7 +37,7 @@ export default function RegisterPage() {
     if (!username) return;
     try {
       const { data } = await axios.get<{ available: boolean }>(
-        `${API_URL}/api/users/check-username`,
+        `${API_URL}/users/check-username`,
         { params: { username } },
       );
       if (!data.available) {

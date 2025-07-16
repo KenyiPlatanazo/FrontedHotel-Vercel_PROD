@@ -63,7 +63,7 @@ export default function RoomDetailPage() {
     if (!id) return;
     const fetchRoom = async () => {
       try {
-        const response = await api.get(`/rooms/rooms/${id}`);
+        const response = await api.get(`/rooms/${id}`);
         setRoom(response.data);
         setTotalPrice(response.data.pricePerNight);
         setTotalNights(1);
