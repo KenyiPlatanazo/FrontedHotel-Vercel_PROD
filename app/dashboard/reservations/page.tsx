@@ -137,27 +137,16 @@ export default function ReservationsPage() {
                     onClick={async () => {
                       const updated = { ...res, status: "ACTIVE" };
                       try {
-                        const response = await fetch(
-                          `${process.env.NEXT_PUBLIC_API_URL}/bookings/${res.id}`,
-                          {
-                            method: "PUT",
-                            headers: {
-                              "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify(updated),
-                          },
+                        const response = await api.put(
+                          `/bookings/${res.id}`,
+                          updated,
                         );
-
-                        if (response.ok) {
-                          const newReservation = await response.json();
-                          setReservations((prev) =>
-                            prev.map((r) =>
-                              r.id === newReservation.id ? newReservation : r,
-                            ),
-                          );
-                        } else {
-                          console.error("Failed to update reservation");
-                        }
+                        const newReservation = response.data;
+                        setReservations((prev) =>
+                          prev.map((r) =>
+                            r.id === newReservation.id ? newReservation : r,
+                          ),
+                        );
                       } catch (err) {
                         console.error("Error updating reservation:", err);
                       }
