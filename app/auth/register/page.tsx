@@ -9,7 +9,7 @@ import Link from "next/link";
 //import api from "../../gateway-services/ConnectionService";
 import axios from "axios";
 
-const API_URL = "https://microservice-oauth-wx76.onrender.com";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
