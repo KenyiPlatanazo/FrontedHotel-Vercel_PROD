@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import api from "../../gateway-services/ConnectionService";
 import axios from "axios";
+//import { useDebounce } from "../promotions/hooks/useDebounce";
 
 interface User {
   id: number;
@@ -32,6 +33,79 @@ export default function UsersPage() {
   const [filter, setFilter] = useState<"All" | "Active" | "Inactive">("All");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  //const [search, setSearch] = useState("");
+  //const debouncedSearch = useDebounce(search, 500);
+
+  /* useEffect(() => {
+    const controller = new AbortController();
+
+    async function load() {
+      try {
+        setLoading(true);
+        let data: RawStat[] = [];
+
+        if (debouncedSearch.trim()) {
+          const res = await api.get<RawStat[]>(
+            `/users/username/${debouncedSearch.trim()}`,
+            {
+              signal: controller.signal,
+              headers: {
+                "Cache-Control": "no-store",
+              },
+            },
+          );
+          data = Array.isArray(res.data) ? res.data : [res.data];
+        } else {
+          const res = await api.get<RawStat[]>("/bookings/stats", {
+            signal: controller.signal,
+            headers: {
+              "Cache-Control": "no-store",
+            },
+          });
+          data = res.data;
+        }
+
+        const mapped: User[] = data.map((s) => ({
+          id: s.id,
+          name: `${s.userName} ${s.userLastName}`,
+          email: s.userEmail,
+          phone: s.cellPhone,
+          joinDate: new Date(s.firstBookingDate).toLocaleDateString("en-US", {
+            month: "short",
+            day: "2-digit",
+            year: "numeric",
+          }),
+          bookings: s.totalBookings,
+          totalSpent: s.totalAmount,
+          status: s.status === "ACTIVE" ? "Active" : "Inactive",
+        }));
+
+        setUsers(mapped);
+        setError(null);
+      } catch (err) {
+        if (axios.isAxiosError(err)) {
+          if (err.code !== "ERR_CANCELED") {
+            console.error(err);
+            setError(
+              err.response?.data?.message ??
+                err.message ??
+                "Error al cargar datos",
+            );
+          }
+        } else if (err instanceof Error) {
+          console.error(err);
+          setError(err.message ?? "Error al cargar los datos");
+        }
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    load();
+
+    return () => controller.abort();
+  }, [debouncedSearch]);
+*/
 
   useEffect(() => {
     const controller = new AbortController();
@@ -99,6 +173,8 @@ export default function UsersPage() {
           type="text"
           placeholder="Search by name, email, or phone…"
           className="w-full md:w-1/2 border px-4 py-2 rounded-md"
+          //value={search}
+          //onChange={(e) => setSearch(e.target.value)}
           // TODO: Implementar búsqueda si la necesitas
         />
         <div className="flex gap-2">
