@@ -40,9 +40,9 @@ interface Room {
 function getMainImageUrl(images: Image[]): string {
   const main = images.find((img) => img.isMain);
   if (main) {
-    return `${process.env.NEXT_PUBLIC_API_URL}/api/rooms/images/${main.filename}?t=${Date.now()}`;
+    return `${process.env.NEXT_PUBLIC_API_URL}/rooms/images/${main.filename}?t=${Date.now()}`;
   } else if (images.length > 0) {
-    return `${process.env.NEXT_PUBLIC_API_URL}/api/rooms/images/${images[0].filename}?t=${Date.now()}`;
+    return `${process.env.NEXT_PUBLIC_API_URL}/rooms/images/${images[0].filename}?t=${Date.now()}`;
   } else {
     return "/images/rooms/default.jpg";
   }
