@@ -39,7 +39,7 @@ export default function PromotionDetails({
             </h4>
             <ul className="list-disc list-inside">
               {promotion.rooms?.map((room) => (
-                <li key={room.roomTypeId}>{room.roomType}</li>
+                <li key={room.id}>{room.name}</li>
               ))}
             </ul>
           </div>

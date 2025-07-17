@@ -7,7 +7,7 @@ import Link from "next/link";
 //import api from "@/lib/api";
 import axios from "axios";
 //import api from "../../gateway-services/ConnectionService";
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = "https://microservice-oauth-wx76.onrender.com";
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
@@ -31,7 +31,7 @@ export default function LoginPage() {
 
     try {
       // 1️⃣ Login (OAuth)
-      const loginResp = await axios.post(`${API_URL}/oauth/login`, {
+      const loginResp = await axios.post(`${API_URL}/login`, {
         username,
         password,
       });

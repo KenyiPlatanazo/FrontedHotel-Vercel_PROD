@@ -214,17 +214,17 @@ const PromotionForm: React.FC<PromotionProps> = ({
               <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
                 {roomTypes?.map((room) => (
                   <label
-                    key={room.roomTypeId}
+                    key={room.id}
                     className="inline-flex items-center gap-2"
                   >
                     <input
                       type="checkbox"
-                      checked={promotion.roomsIds.includes(room.roomTypeId)}
+                      checked={promotion.roomsIds.includes(room.id)}
                       onChange={() => {
-                        handleRoomTypeToggle(room.roomTypeId);
+                        handleRoomTypeToggle(room.id);
                       }}
                     />
-                    {room.roomType}
+                    {room.name}
                   </label>
                 ))}
               </div>

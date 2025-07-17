@@ -112,7 +112,7 @@ export default function PromotionsPage() {
       isActive: promo.isActive,
       minStay: promo.minStay,
       roomApplicability: promo.roomApplicability,
-      roomsIds: promo.rooms?.map((rt) => rt.roomTypeId) ?? [],
+      roomsIds: promo.rooms?.map((rt) => rt.id) ?? [],
     });
     setShowEditPromotion(true);
   };
