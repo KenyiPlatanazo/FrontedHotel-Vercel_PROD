@@ -6,7 +6,8 @@ import { Mail, Lock } from "lucide-react";
 import Link from "next/link";
 //import api from "@/lib/api";
 import axios from "axios";
-import api from "../../gateway-services/ConnectionService";
+//import api from "../../gateway-services/ConnectionService";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
@@ -30,7 +31,7 @@ export default function LoginPage() {
 
     try {
       // 1️⃣ Login (OAuth)
-      const loginResp = await api.post("/oauth/login", {
+      const loginResp = await axios.post(`${API_URL}/oauth/login`, {
         username,
         password,
       });
