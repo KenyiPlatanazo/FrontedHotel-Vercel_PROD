@@ -6,7 +6,7 @@ const api = axios.create({
 });
 
 axiosRetry(api, {
-  retries: 3,
+  retries: 1,
   retryDelay: (retryCount) => retryCount * 1000,
   retryCondition: (error) =>
     axiosRetry.isNetworkError(error) ||

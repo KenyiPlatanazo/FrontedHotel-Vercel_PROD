@@ -16,7 +16,7 @@ export default function ChatPage() {
 
   useEffect(() => {
     const socket = new SockJS(
-      "https://microservice-messages-7r1h.onrender.com/ws-message",
+      "https://microservice-messages-n26r.onrender.com/ws-message",
     );
     const client = new Client({
       webSocketFactory: () => socket,

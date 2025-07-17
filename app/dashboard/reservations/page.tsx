@@ -144,7 +144,9 @@ export default function ReservationsPage() {
                         const newReservation = response.data;
                         setReservations((prev) =>
                           prev.map((r) =>
-                            r.id === newReservation.id ? newReservation : r,
+                            r.id === newReservation.id
+                              ? { ...r, ...newReservation }
+                              : r,
                           ),
                         );
                       } catch (err) {

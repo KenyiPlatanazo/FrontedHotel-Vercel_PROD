@@ -100,6 +100,28 @@ export default function PromotionsPage() {
     }
   };
 
+  const handleToggleActive = async (promo: service.Promotion) => {
+    try {
+      const updated: service.PromotionRequest = {
+        name: promo.name,
+        description: promo.description,
+        discountValue: promo.discountValue,
+        startDate: promo.startDate,
+        endDate: promo.endDate,
+        type: promo.type,
+        isActive: !promo.isActive,
+        minStay: promo.minStay,
+        roomApplicability: promo.roomApplicability,
+        roomsIds: promo.rooms?.map((rt) => rt.id),
+      };
+
+      await service.updatePromotion(promo.promotionId, updated);
+      await fetchFilteredPromotions();
+    } catch (error) {
+      console.error("Failed to toggle active state, ", error);
+    }
+  };
+
   const openEditModal = (promo: service.Promotion) => {
     setPromToBeEdited(promo);
     setEditPromotion({
@@ -112,7 +134,7 @@ export default function PromotionsPage() {
       isActive: promo.isActive,
       minStay: promo.minStay,
       roomApplicability: promo.roomApplicability,
-      roomsIds: promo.rooms?.map((rt) => rt.roomTypeId) ?? [],
+      roomsIds: promo.rooms?.map((rt) => rt.id) ?? [],
     });
     setShowEditPromotion(true);
   };
@@ -248,7 +270,10 @@ export default function PromotionsPage() {
                     >
                       Details
                     </button>
-                    <button className="text-red-600 underline text-xs">
+                    <button
+                      className="text-red-600 underline text-xs"
+                      onClick={() => handleToggleActive(promo)}
+                    >
                       {promo.isActive === true ? "Deactivate" : "Activate"}
                     </button>
                   </td>

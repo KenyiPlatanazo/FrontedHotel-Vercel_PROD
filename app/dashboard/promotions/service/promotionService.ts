@@ -35,8 +35,8 @@ export interface PromotionRequest {
 }
 
 export interface RoomType {
-  roomTypeId: number;
-  roomType: string;
+  id: number;
+  name: string;
 }
 
 export const getAllPromotions = async (): Promise<Promotion[]> => {
